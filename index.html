@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <title>OkutamaToriKaruta</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <style>
+        /*チラツキ防止*/
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex bg-black h-screen touch-manipulation select-none">
+
+<main id="app" class="m-auto w-96" v-cloak>
+
+    <div @click="test" class="">
+        <img src="test.png" alt="icon" class="mx-auto rounded-lg m-4"/>
+    </div>
+</main>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+        integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
