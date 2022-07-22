@@ -4,7 +4,7 @@ var app = new Vue({
         birds: ["tobi", "uguisu", "kibitaki", "mejiro"],
         playing: false,
         mainImage: "images/quiz.jpg",
-        selectedBirdIdx : 0,
+        selectedBirdIdx: 0,
     },
     created: function () {
     },
@@ -19,7 +19,15 @@ var app = new Vue({
             this.playing = !this.playing;
 
             if (this.playing) {
-                this.selectedBirdIdx = Math.floor(Math.random() * this.birds.length);
+                
+                while (true) {
+                    let tmp = Math.floor(Math.random() * this.birds.length);
+                    if (this.selectedBirdIdx !== tmp) {
+                        this.selectedBirdIdx = tmp;
+                        break;
+                    }
+                }
+                
                 this.twitter();
                 this.mainImage = "images/quiz.jpg";
             } else {
