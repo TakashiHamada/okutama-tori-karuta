@@ -1,7 +1,8 @@
 var app = new Vue({
     el: '#app',
     data: {
-        birds: ["tobi", "uguisu", "kibitaki", "mejiro"],
+        birds: ["hojiro", "hiyodori", "misosazai", "uguisu", "ooruri", "kibitaki",
+            "kogera", "tobi", "kakesu", "suzume", "kisekirei", "bosogarasu"],
         playing: false,
         mainImage: "images/quiz.jpg",
         selectedBirdIdx: 0,
@@ -14,6 +15,18 @@ var app = new Vue({
                 await playSe(this.birds[this.selectedBirdIdx]);
                 await waitSec(1.5);
             }
+            
+            // // 1回目
+            // await playSe(this.birds[this.selectedBirdIdx]);
+            // await waitSec(1.5);
+            //
+            // // 画像を表示
+            // this.mainImage = "images/" + this.birds[this.selectedBirdIdx] + ".jpg";
+            // while (this.playing) {
+            //     // ループ
+            //     await playSe(this.birds[this.selectedBirdIdx]);
+            //     await waitSec(1.5);
+            // }
         },
         onPushed() {
             this.playing = !this.playing;
@@ -48,6 +61,9 @@ function waitSec(sec) {
 
 function playSe(fileName, volume = 1.0) {
     return new Promise(resolve => {
+        
+        // 前のSEを止める
+        Howler.stop();
 
         new Howl({
             src: ["audios/" + fileName + ".mp3"],
