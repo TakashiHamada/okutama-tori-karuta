@@ -9,8 +9,10 @@ var app = new Vue({
         mainImage: "images/quiz.jpg",
         selectedBirdIdx: 0,
         name: "",
+        showFlags: [],
     },
     created: function () {
+        this.showFlags = [...Array(this.birds.length)].map((_) => false);
     },
     methods: {
         async twitter() {
@@ -19,16 +21,32 @@ var app = new Vue({
                 await waitSec(1.5);
             }
         },
+        async reload() {
+            this.mainImage = "images/game_over.jpg";
+            this.name = "リロードします...";
+            await waitSec(2);
+            window.location.reload();
+        },
         onPushed() {
             this.playing = !this.playing;
 
             if (this.playing) {
+                
+                // すべてフラグが立ったらリロードする
+                if (this.showFlags.every(v => v === true))
+                {
+                    this.reload();
+                    return;
+                }
+                
                 this.name = "";
                 
+                // 出るまで繰り返すので非効率, 山札から引くほうが良い
                 while (true) {
                     let tmp = Math.floor(Math.random() * this.birds.length);
-                    if (this.selectedBirdIdx !== tmp) {
+                    if (this.showFlags[tmp] === false) {
                         this.selectedBirdIdx = tmp;
+                        this.showFlags[tmp] = true;
                         break;
                     }
                 }
