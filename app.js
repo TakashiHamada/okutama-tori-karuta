@@ -3,9 +3,12 @@ var app = new Vue({
     data: {
         birds: ["hojiro", "hiyodori", "misosazai", "uguisu", "ooruri", "kibitaki",
             "kogera", "tobi", "kakesu", "suzume", "kisekirei", "bosogarasu"],
+        names: ["ホオジロ", "ヒヨドリ", "ミソサザイ", "ウグイス", "オオルリ", "キビタキ",
+            "コゲラ", "トビ", "カケス", "スズメ", "キセキレイ", "ハシボソガラス"],
         playing: false,
         mainImage: "images/quiz.jpg",
         selectedBirdIdx: 0,
+        name: "",
     },
     created: function () {
     },
@@ -15,23 +18,12 @@ var app = new Vue({
                 await playSe(this.birds[this.selectedBirdIdx]);
                 await waitSec(1.5);
             }
-            
-            // // 1回目
-            // await playSe(this.birds[this.selectedBirdIdx]);
-            // await waitSec(1.5);
-            //
-            // // 画像を表示
-            // this.mainImage = "images/" + this.birds[this.selectedBirdIdx] + ".jpg";
-            // while (this.playing) {
-            //     // ループ
-            //     await playSe(this.birds[this.selectedBirdIdx]);
-            //     await waitSec(1.5);
-            // }
         },
         onPushed() {
             this.playing = !this.playing;
 
             if (this.playing) {
+                this.name = "";
                 
                 while (true) {
                     let tmp = Math.floor(Math.random() * this.birds.length);
@@ -45,6 +37,7 @@ var app = new Vue({
                 this.mainImage = "images/quiz.jpg";
             } else {
                 this.mainImage = "images/" + this.birds[this.selectedBirdIdx] + ".jpg";
+                this.name = this.names[this.selectedBirdIdx];
             }
         },
     }
