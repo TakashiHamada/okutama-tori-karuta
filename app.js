@@ -11,12 +11,26 @@ var app = new Vue({
         name: "",
         showFlags: [],
     },
+    computed: { // getter
+        BirdRest: function () {
+            // return this.selectedBirdIdx;
+            return this.showFlags.filter(v => v === false).length;
+            // let tmp = 0;
+            // for (let idx = 0; idx < this.showFlags.length; idx++) {
+            //     console.log(this.showFlags[idx]);
+            //     if (this.showFlags[idx] === true)
+            //         tmp ++;
+            // }
+            // return tmp;
+        }
+    },
     created: function () {
         this.showFlags = [...Array(this.birds.length)].map((_) => false);
     },
     methods: {
         async twitter() {
-            while (this.playing) {
+            // while (this.playing) {
+            while (true) { // <= ずっと鳴る仕様に変更
                 await playSe(this.birds[this.selectedBirdIdx]);
                 await waitSec(1.5);
             }
@@ -30,17 +44,17 @@ var app = new Vue({
         onPushed() {
             this.playing = !this.playing;
 
+
             if (this.playing) {
-                
+
                 // すべてフラグが立ったらリロードする
-                if (this.showFlags.every(v => v === true))
-                {
+                if (this.showFlags.every(v => v === true)) {
                     this.reload();
                     return;
                 }
-                
+
                 this.name = "";
-                
+
                 // 出るまで繰り返すので非効率, 山札から引くほうが良い
                 while (true) {
                     let tmp = Math.floor(Math.random() * this.birds.length);
@@ -50,7 +64,9 @@ var app = new Vue({
                         break;
                     }
                 }
-                
+                // 更新（リアクティブ対処）
+                this.showFlags.splice();
+
                 this.twitter();
                 this.mainImage = "images/quiz.jpg";
             } else {
@@ -72,7 +88,7 @@ function waitSec(sec) {
 
 function playSe(fileName, volume = 1.0) {
     return new Promise(resolve => {
-        
+
         // 前のSEを止める
         Howler.stop();
 
