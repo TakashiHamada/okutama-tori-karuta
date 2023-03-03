@@ -1,6 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
+        test: [],
         birds: ["hojiro", "hiyodori", "misosazai", "uguisu", "ooruri", "kibitaki",
             "kogera", "tobi", "kakesu", "suzume", "kisekirei", "bosogarasu"],
         names: ["ホオジロ", "ヒヨドリ", "ミソサザイ", "ウグイス", "オオルリ", "キビタキ",
@@ -26,6 +27,11 @@ var app = new Vue({
     },
     created: function () {
         this.showFlags = [...Array(this.birds.length)].map((_) => false);
+        
+        let birds = new Pile();
+        this.test = [birds.hiyodori, birds.misosazai];
+        
+        console.log(birds);
     },
     methods: {
         async twitter() {
