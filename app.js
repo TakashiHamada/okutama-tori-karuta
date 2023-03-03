@@ -1,11 +1,10 @@
 var app = new Vue({
     el: '#app',
     data: {
-        test: [],
+        shiromaru: [], // 白丸湖
+        nippara: [], // 日原
         birds: ["hojiro", "hiyodori", "misosazai", "uguisu", "ooruri", "kibitaki",
             "kogera", "tobi", "kakesu", "suzume", "kisekirei", "bosogarasu"],
-        names: ["ホオジロ", "ヒヨドリ", "ミソサザイ", "ウグイス", "オオルリ", "キビタキ",
-            "コゲラ", "トビ", "カケス", "スズメ", "キセキレイ", "ハシボソガラス"],
         playing: false,
         mainImage: "images/quiz.jpg",
         selectedBirdIdx: 0,
@@ -26,18 +25,17 @@ var app = new Vue({
         }
     },
     created: function () {
-        this.showFlags = [...Array(this.birds.length)].map((_) => false);
+        let pile = new Pile();
+        this.shiromaru = [pile.hiyodori, pile.misosazai, pile.oorui, pile.kibitaki, pile.kakesu, pile.kisekirei, pile.fukurou, pile.ikaru, pile.aobato, pile.yamasemi, pile.kawasemi];
+        this.nippara = [pile.hiyodori, pile.misosazai, pile.oorui, pile.kibitaki, pile.kakesu, pile.kisekirei, pile.fukurou, pile.ikaru, pile.aobato, pile.toratsugumi, pile.hojiro];
         
-        let birds = new Pile();
-        this.test = [birds.hiyodori, birds.misosazai];
-        
-        console.log(birds);
+        this.showFlags = [...Array(this.shiromaru.length)].map((_) => false);
     },
     methods: {
         async twitter() {
             // while (this.playing) {
             while (true) { // <= ずっと鳴る仕様に変更
-                await playSe(this.birds[this.selectedBirdIdx]);
+                await playSe(this.shiromaru[this.selectedBirdIdx].filePrefix);
                 await waitSec(1.5);
             }
         },
@@ -63,7 +61,7 @@ var app = new Vue({
 
                 // 出るまで繰り返すので非効率, 山札から引くほうが良い
                 while (true) {
-                    let tmp = Math.floor(Math.random() * this.birds.length);
+                    let tmp = Math.floor(Math.random() * this.shiromaru.length);
                     if (this.showFlags[tmp] === false) {
                         this.selectedBirdIdx = tmp;
                         this.showFlags[tmp] = true;
@@ -76,8 +74,8 @@ var app = new Vue({
                 this.twitter();
                 this.mainImage = "images/quiz.jpg";
             } else {
-                this.mainImage = "images/" + this.birds[this.selectedBirdIdx] + ".jpg";
-                this.name = this.names[this.selectedBirdIdx];
+                this.mainImage = "images/" + this.shiromaru[this.selectedBirdIdx].filePrefix + ".jpg";
+                this.name = this.shiromaru[this.selectedBirdIdx].name;
             }
         },
     }
