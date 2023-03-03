@@ -1,10 +1,9 @@
 var app = new Vue({
     el: '#app',
     data: {
-        birds: ["hojiro", "hiyodori", "misosazai", "uguisu", "ooruri", "kibitaki",
-            "kogera", "tobi", "kakesu", "suzume", "kisekirei", "bosogarasu"],
-        names: ["ホオジロ", "ヒヨドリ", "ミソサザイ", "ウグイス", "オオルリ", "キビタキ",
-            "コゲラ", "トビ", "カケス", "スズメ", "キセキレイ", "ハシボソガラス"],
+        shiromaru: [], // 白丸湖
+        nippara: [], // 日原
+        cards: [],
         playing: false,
         mainImage: "images/quiz.jpg",
         selectedBirdIdx: 0,
@@ -25,13 +24,27 @@ var app = new Vue({
         }
     },
     created: function () {
-        this.showFlags = [...Array(this.birds.length)].map((_) => false);
+        // 登録
+        let pile = new Pile();
+        this.shiromaru = [pile.hiyodori, pile.misosazai, pile.oorui, pile.kibitaki, pile.kakesu, pile.kisekirei, pile.fukurou, pile.ikaru, pile.aobato, pile.yamasemi, pile.kawasemi];
+        this.nippara = [pile.hiyodori, pile.misosazai, pile.oorui, pile.kibitaki, pile.kakesu, pile.kisekirei, pile.fukurou, pile.ikaru, pile.aobato, pile.toratsugumi, pile.hojiro];
+        // --
+        switch (getUrlQueries()['type']) {
+            case 'srmr' :
+                this.cards = this.shiromaru;
+                break;
+            case 'nppr' :
+                this.cards = this.nippara;
+                break;
+        }
+
+        this.showFlags = [...Array(this.cards.length)].map((_) => false);
     },
     methods: {
         async twitter() {
             // while (this.playing) {
             while (true) { // <= ずっと鳴る仕様に変更
-                await playSe(this.birds[this.selectedBirdIdx]);
+                await playSe(this.cards[this.selectedBirdIdx].filePrefix);
                 await waitSec(1.5);
             }
         },
@@ -57,7 +70,7 @@ var app = new Vue({
 
                 // 出るまで繰り返すので非効率, 山札から引くほうが良い
                 while (true) {
-                    let tmp = Math.floor(Math.random() * this.birds.length);
+                    let tmp = Math.floor(Math.random() * this.cards.length);
                     if (this.showFlags[tmp] === false) {
                         this.selectedBirdIdx = tmp;
                         this.showFlags[tmp] = true;
@@ -70,34 +83,9 @@ var app = new Vue({
                 this.twitter();
                 this.mainImage = "images/quiz.jpg";
             } else {
-                this.mainImage = "images/" + this.birds[this.selectedBirdIdx] + ".jpg";
-                this.name = this.names[this.selectedBirdIdx];
+                this.mainImage = "images/" + this.cards[this.selectedBirdIdx].filePrefix + ".jpg";
+                this.name = this.cards[this.selectedBirdIdx].name;
             }
         },
     }
 })
-
-// --
-function waitSec(sec) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve()
-        }, sec * 1000);
-    })
-}
-
-function playSe(fileName, volume = 1.0) {
-    return new Promise(resolve => {
-
-        // 前のSEを止める
-        Howler.stop();
-
-        new Howl({
-            src: ["audios/" + fileName + ".mp3"],
-            volume: volume,
-            onend: function () {
-                resolve();
-            }
-        }).play();
-    })
-}
