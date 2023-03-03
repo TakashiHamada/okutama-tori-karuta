@@ -12,15 +12,8 @@ var app = new Vue({
     },
     computed: { // getter
         BirdRest: function () {
-            // return this.selectedBirdIdx;
-            return this.showFlags.filter(v => v === false).length;
-            // let tmp = 0;
-            // for (let idx = 0; idx < this.showFlags.length; idx++) {
-            //     console.log(this.showFlags[idx]);
-            //     if (this.showFlags[idx] === true)
-            //         tmp ++;
-            // }
-            // return tmp;
+            let left = this.showFlags.filter(v => v === false).length;
+            return left == 0 ? "最後の1" : left + 1;
         }
     },
     created: function () {
@@ -56,7 +49,6 @@ var app = new Vue({
         },
         onPushed() {
             this.playing = !this.playing;
-
 
             if (this.playing) {
 
