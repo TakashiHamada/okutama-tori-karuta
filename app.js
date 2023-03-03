@@ -9,6 +9,7 @@ var app = new Vue({
         selectedBirdIdx: 0,
         name: "",
         showFlags: [],
+        location,
     },
     computed: { // getter
         BirdRest: function () {
@@ -25,9 +26,11 @@ var app = new Vue({
         switch (getUrlQueries()['type']) {
             case 'srmr' :
                 this.cards = this.shiromaru;
+                this.location = '白丸湖';
                 break;
             case 'nppr' :
                 this.cards = this.nippara;
+                this.location = '日原';
                 break;
         }
 

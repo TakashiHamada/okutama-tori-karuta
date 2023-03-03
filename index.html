@@ -19,6 +19,9 @@
 <main id="app" class="m-auto w-96" v-cloak>
 
     <div @click="onPushed" class="">
+        <h1 class="text-white absolute top-0 right-0 p-2 text-xl">
+            {{location}}
+        </h1>
         <img :src="mainImage" alt="icon" class="mx-auto rounded-lg m-4"/>
         <h1 class="text-white absolute bottom-0 left-0 p-2 text-xl">
             {{name}}
