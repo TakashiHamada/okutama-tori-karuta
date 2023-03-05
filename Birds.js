@@ -1,4 +1,5 @@
-function Pile() {
+function Birds() {
+    // birds
     this.hiyodori = new Bird('hiyodori', 'ヒヨドリ');
     this.misosazai = new Bird('misosazai', 'ミソサザイ');
     this.oorui = new Bird('ooruri', 'オオルリ');
@@ -12,4 +13,9 @@ function Pile() {
     this.kawasemi = new Bird('kawasemi', 'カワセミ');
     this.toratsugumi = new Bird('toratsugumi', 'トラツムギ');
     this.hojiro = new Bird('hojiro', 'ホオジロ');
+}
+
+function Bird(filePrefix, name) {
+    this.filePrefix = filePrefix;
+    this.name = name;
 }

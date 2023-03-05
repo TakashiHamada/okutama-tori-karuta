@@ -19,9 +19,9 @@ var app = new Vue({
     },
     created: function () {
         // 登録
-        let pile = new Pile();
-        this.shiromaru = [pile.hiyodori, pile.misosazai, pile.oorui, pile.kibitaki, pile.kakesu, pile.kisekirei, pile.fukurou, pile.ikaru, pile.aobato, pile.yamasemi, pile.kawasemi];
-        this.nippara = [pile.hiyodori, pile.misosazai, pile.oorui, pile.kibitaki, pile.kakesu, pile.kisekirei, pile.fukurou, pile.ikaru, pile.aobato, pile.toratsugumi, pile.hojiro];
+        let birds = new Birds();
+        this.shiromaru = [birds.hiyodori, birds.misosazai, birds.oorui, birds.kibitaki, birds.kakesu, birds.kisekirei, birds.fukurou, birds.ikaru, birds.aobato, birds.yamasemi, birds.kawasemi];
+        this.nippara = [birds.hiyodori, birds.misosazai, birds.oorui, birds.kibitaki, birds.kakesu, birds.kisekirei, birds.fukurou, birds.ikaru, birds.aobato, birds.toratsugumi, birds.hojiro];
         // --
         switch (getUrlQueries()['type']) {
             case 'srmr' :
@@ -31,6 +31,9 @@ var app = new Vue({
             case 'nppr' :
                 this.cards = this.nippara;
                 this.location = '日原';
+                break;
+            default :
+                this.cards = this.shiromaru;
                 break;
         }
 
