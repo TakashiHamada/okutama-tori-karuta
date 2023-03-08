@@ -1,15 +1,12 @@
 var app = new Vue({
     el: '#app',
     data: {
-        shiromaru: [], // 白丸湖
-        nippara: [], // 日原
-        cards: [],
+        pile: {},
         playing: false,
         mainImage: "images/quiz.jpg",
         selectedBirdIdx: 0,
         name: "",
         showFlags: [],
-        location,
     },
     computed: { // getter
         BirdRest: function () {
@@ -18,32 +15,16 @@ var app = new Vue({
         }
     },
     created: function () {
-        // 登録
-        let birds = new Birds();
-        this.shiromaru = [birds.hiyodori, birds.misosazai, birds.oorui, birds.kibitaki, birds.kakesu, birds.kisekirei, birds.fukurou, birds.ikaru, birds.aobato, birds.yamasemi, birds.kawasemi];
-        this.nippara = [birds.hiyodori, birds.misosazai, birds.oorui, birds.kibitaki, birds.kakesu, birds.kisekirei, birds.fukurou, birds.ikaru, birds.aobato, birds.toratsugumi, birds.hojiro];
-        // --
-        switch (getUrlQueries()['type']) {
-            case 'srmr' :
-                this.cards = this.shiromaru;
-                this.location = '白丸湖';
-                break;
-            case 'nppr' :
-                this.cards = this.nippara;
-                this.location = '日原';
-                break;
-            default :
-                this.cards = this.shiromaru;
-                break;
-        }
-
-        this.showFlags = [...Array(this.cards.length)].map((_) => false);
+        let piles = new Piles();
+        let type = getUrlQueries()['type'];
+        this.pile = piles.getPile(type);
+        this.showFlags = [...Array(this.pile.cards.length)].map((_) => false);
     },
     methods: {
         async twitter() {
             // while (this.playing) {
             while (true) { // <= ずっと鳴る仕様に変更
-                await playSe(this.cards[this.selectedBirdIdx].filePrefix);
+                await playSe(this.pile.cards[this.selectedBirdIdx].filePrefix);
                 await waitSec(1.5);
             }
         },
@@ -68,7 +49,7 @@ var app = new Vue({
 
                 // 出るまで繰り返すので非効率, 山札から引くほうが良い
                 while (true) {
-                    let tmp = Math.floor(Math.random() * this.cards.length);
+                    let tmp = Math.floor(Math.random() * this.pile.cards.length);
                     if (this.showFlags[tmp] === false) {
                         this.selectedBirdIdx = tmp;
                         this.showFlags[tmp] = true;
@@ -81,8 +62,8 @@ var app = new Vue({
                 this.twitter();
                 this.mainImage = "images/quiz.jpg";
             } else {
-                this.mainImage = "images/" + this.cards[this.selectedBirdIdx].filePrefix + ".jpg";
-                this.name = this.cards[this.selectedBirdIdx].name;
+                this.mainImage = "images/" + this.pile.cards[this.selectedBirdIdx].filePrefix + ".jpg";
+                this.name = this.pile.cards[this.selectedBirdIdx].name;
             }
         },
     }
