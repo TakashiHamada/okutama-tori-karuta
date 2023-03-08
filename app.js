@@ -3,7 +3,7 @@ var app = new Vue({
     data: {
         pile: {},
         playing: false,
-        mainImage: "images/quiz.jpg",
+        mainImage: "otherImages/loading.gif",
         selectedBirdIdx: 0,
         name: "",
         showFlags: [],
@@ -19,6 +19,8 @@ var app = new Vue({
         let type = getUrlQueries()['type'];
         this.pile = piles.getPile(type);
         this.showFlags = [...Array(this.pile.cards.length)].map((_) => false);
+        // タイトル表示
+        this.mainImage = this.pile.image;
     },
     methods: {
         async twitter() {
@@ -60,9 +62,9 @@ var app = new Vue({
                 this.showFlags.splice();
 
                 this.twitter();
-                this.mainImage = "images/quiz.jpg";
+                this.mainImage = "otherImages/quiz.jpg";
             } else {
-                this.mainImage = "images/" + this.pile.cards[this.selectedBirdIdx].filePrefix + ".jpg";
+                this.mainImage = "birdImages/" + this.pile.cards[this.selectedBirdIdx].filePrefix + ".jpg";
                 this.name = this.pile.cards[this.selectedBirdIdx].name;
             }
         },
