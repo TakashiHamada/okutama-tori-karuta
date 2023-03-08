@@ -59,7 +59,7 @@ function Piles() {
                 return this.ogouchijinja;
             case 'hnhr' :
                 return this.hinoharatominnomori;
-            case 'mitk' :
+            case 'mtke' :
                 return this.mitakesan;
             default :
                 return this.all;
