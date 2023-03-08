@@ -24,7 +24,7 @@ function Piles() {
     this.shiromaru = {
         cards: [birds.hiyodori, birds.misosazai, birds.oorui, birds.kibitaki, birds.kakesu, birds.kisekirei, birds.fukurou, birds.ikaru, birds.aobato, birds.yamasemi, birds.kawasemi],
         location: '白丸湖',
-        image: 'otherImages/shiromaru.jpg',
+        image: 'otherImages/shiromaruko.jpg',
     };
     this.hikawa = {
         cards: [birds.hiyodori, birds.misosazai],
