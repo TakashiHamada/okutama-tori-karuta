@@ -3,7 +3,7 @@ var app = new Vue({
     data: {
         pile: {},
         playing: false,
-        mainImage: "otherImages/loading.gif",
+        mainImage: "",
         selectedBirdIdx: 0,
         name: "",
         showFlags: [],
@@ -31,7 +31,7 @@ var app = new Vue({
             }
         },
         async reload() {
-            this.mainImage = "images/game_over.jpg";
+            this.mainImage = "otherImages/game_over.jpg";
             this.name = "リロードします...";
             await waitSec(2);
             window.location.reload();
