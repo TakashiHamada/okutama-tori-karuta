@@ -5,7 +5,7 @@ function Birds() {
     this.hiyodori = new Bird('hiyodori', 'ヒヨドリ');
     this.misosazai = new Bird('misosazai', 'ミソサザイ');
     this.uguisu = new Bird('uguisu', 'ウグイス');
-    this.oorui = new Bird('ooruri', 'オオルリ');
+    this.ooruri = new Bird('ooruri', 'オオルリ');
     this.kibitaki = new Bird('kibitaki', 'キビタキ');
     this.kogera = new Bird('kogera', 'コゲラ');
     this.tobi = new Bird('tobi', 'トビ');
@@ -16,7 +16,7 @@ function Birds() {
     this.hashibosogarasu= new Bird('hashibosogarasu', 'ハシボソガラス');
     this.gabicho = new Bird('gabicho', 'ガビチョウ');
     this.ikaru = new Bird('ikaru', 'イカル');
-    this.shobitaki = new Bird('shobitaki', 'ショウビタキ');
+    this.jyobitaki = new Bird('jyobitaki', 'ジョウビタキ');
     this.komadori = new Bird('komadori', 'コマドリ');
     this.yabusame = new Bird('yabusame', 'ヤブサメ');
     this.sankoucho = new Bird('sankoucho', 'サンコウチョウ');
