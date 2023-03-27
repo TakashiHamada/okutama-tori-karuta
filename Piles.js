@@ -85,8 +85,8 @@ function Piles() {
             birds.kijibato, birds.yamadori, birds.koruri, birds.ruribitaki, birds.mozu,
             birds.shijyukara, birds.yamasemi, birds.kawasemi, birds.higara, birds.akahara,
             birds.toratsugumi, birds.aogera, birds.ooakagera],
-        cards: [birds.hiyodori, birds.misosazai],
         location: '全部MIX',
+        image: 'otherImages/all.jpg',
     };
     this.getPile = function (type) {
         switch (type) {
