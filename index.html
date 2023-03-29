@@ -19,7 +19,7 @@
 <main id="app" class="m-auto w-96" v-cloak>
 
     <div v-show="mode=='preparation'">
-        <h1 class="text-white text-xl">このカードを集めてみよう</h1>
+        <h1 class="text-white text-xl">カードを見つけたらタッチ！</h1>
         <ul class="columns-2 md:columns-3 lg:columns-4">
             <li v-for="(card, idx) in pile.cards" v-bind:class="{'opacity-20':card.selected}">
                 <button v-on:click="card.selected=!card.selected">
