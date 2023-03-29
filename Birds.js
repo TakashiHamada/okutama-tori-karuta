@@ -42,20 +42,5 @@ function Birds() {
 function Bird(filePrefix, name) {
     this.filePrefix = filePrefix;
     this.name = name;
+    this.selected = false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

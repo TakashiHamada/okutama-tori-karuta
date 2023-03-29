@@ -10,10 +10,13 @@ var app = new Vue({
         mode: "preparation",
     },
     computed: { // getter
-        BirdRest: function () {
+        resetCountDown: function () {
             let left = this.showFlags.filter(v => v === false).length;
             return left == 0 ? "最後の1" : left + 1;
         },
+        remainingCardCount: function () {
+            return this.pile.cards.filter(card => !card.selected).length;
+        }
     },
     created: function () {
         let piles = new Piles();
@@ -74,6 +77,6 @@ var app = new Vue({
         },
         startGame() {
             this.mode = "main_game";
-        }
+        },
     }
 })
