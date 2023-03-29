@@ -7,12 +7,13 @@ var app = new Vue({
         selectedBirdIdx: 0,
         name: "",
         showFlags: [],
+        mode: "preparation",
     },
     computed: { // getter
         BirdRest: function () {
             let left = this.showFlags.filter(v => v === false).length;
             return left == 0 ? "最後の1" : left + 1;
-        }
+        },
     },
     created: function () {
         let piles = new Piles();
@@ -68,5 +69,11 @@ var app = new Vue({
                 this.name = this.pile.cards[this.selectedBirdIdx].name;
             }
         },
+        getBirdImageURL(card) {
+            return "./birdImages/" + card.filePrefix + ".jpg";
+        },
+        startGame() {
+            this.mode = "main_game";
+        }
     }
 })
