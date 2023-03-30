@@ -18,21 +18,40 @@
 
 <main id="app" class="m-auto w-96" v-cloak>
 
-    <div v-show="mode=='preparation'">
-        <h1 class="text-white text-xl">カードを見つけたらタッチ！</h1>
-        <ul class="columns-2 md:columns-3 lg:columns-4">
+    <div v-show="mode=='preparation' || mode=='instruction'">
+        <ul v-on:click="scrollToBottomIfPossible" class="columns-2 md:columns-3 lg:columns-4">
             <li v-for="(card, idx) in pile.cards" v-bind:class="{'opacity-20':card.selected}">
                 <button v-on:click="card.selected=!card.selected">
-                <img class="" v-bind:src="getBirdImageURL(card)">
+                    <img class="" v-bind:src="getBirdImageURL(card)">
                 </button>
             </li>
         </ul>
-        <p class="text-white text-m">
-            残り {{remainingCardCount}} 枚
+        <p v-show="0 < remainingCardCount" class="text-white text-m">
+            全てのカードを見つけて！ 残り {{remainingCardCount}} 枚
         </p>
-        <button :disabled="0 < remainingCardCount" v-on:click="startGame()" class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto" v-bind:class="{'opacity-50':0 < remainingCardCount}">
+        <button :disabled="0 < remainingCardCount" v-on:click="proceedGameState()"
+                class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto"
+                v-bind:class="{'opacity-50':0 < remainingCardCount}">
             ゲームをはじめる
         </button>
+
+<!--        モーダル-->
+        <div v-show="mode=='instruction'" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
+            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                <div class="modal-header py-3 px-4 border-b border-gray-300">
+                    <h1 class="text-lg font-bold text-gray-900">ステージ「{{pile.location}}」</h1>
+                </div>
+                <div class="modal-body p-3">
+                    <h2 class="font-bold">準備</h2>
+                    <p>山札からゲームで使用する鳥のカードを集めます。
+                        見つかったら鳥の写真をタッチしてください。</p>
+                    <button v-on:click="proceedGameState()" class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto mt-5">
+                        カードを見つける
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div v-show="mode=='main_game'" @click="onPushed" class="">

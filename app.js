@@ -7,7 +7,7 @@ var app = new Vue({
         selectedBirdIdx: 0,
         name: "",
         showFlags: [],
-        mode: "preparation",
+        mode: "instruction",
     },
     computed: { // getter
         resetCountDown: function () {
@@ -75,8 +75,31 @@ var app = new Vue({
         getBirdImageURL(card) {
             return "./birdImages/" + card.filePrefix + ".jpg";
         },
-        startGame() {
-            this.mode = "main_game";
+        proceedGameState() {
+            switch (this.mode) {
+                case "instruction":
+                    this.mode = "preparation";
+                    break;
+                case "preparation":
+                    this.mode = "main_game";
+                    break;
+                default:
+                    this.mode = "instruction";
+                    break;
+            }
         },
+        scrollToBottomIfPossible(){
+            if (0 < this.remainingCardCount) return;
+            
+            // 参照:https://mebee.info/2020/11/23/post-17840/#outline__4
+            let elm = document.documentElement;
+            //scrollHeight ページの高さ clientHeight ブラウザの高さ
+            let bottom = elm.scrollHeight - elm.clientHeight;
+            //垂直方向へ移動
+            window.scroll({
+                top: bottom,
+                behavior: "smooth"
+            });
+        }
     }
 })
