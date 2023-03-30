@@ -27,6 +27,9 @@ var app = new Vue({
         this.mainImage = this.pile.image;
     },
     methods: {
+        playTestSe() {
+            playSe("uguisu");
+        },
         async twitter() {
             // while (this.playing) {
             while (true) { // <= ずっと鳴る仕様に変更

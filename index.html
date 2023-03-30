@@ -46,6 +46,18 @@
                     <h2 class="font-bold">準備</h2>
                     <p>山札からゲームで使用する鳥のカードを集めます。
                         見つかったら鳥の写真をタッチしてください。</p>
+
+                    <h2 class="font-bold my-3">音が出るかチェック！</h2>
+                    <div class="">
+                        <button @click="playTestSe()" class="w-full py-2 text-m text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto">
+                            テスト再生（ウグイス）
+                        </button>
+                        <h3 class="font-bold my-2">音がでない主な原因</h3>
+                        <p>
+                            ・マナーモードになっている<br>
+                            ・設定音量が小さい
+                        </p>
+                    </div>
                     <button v-on:click="proceedGameState()" class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto mt-5">
                         カードを見つける
                     </button>
