@@ -22,6 +22,10 @@ var app = new Vue({
         let piles = new Piles();
         let type = getUrlQueries()['type'];
         this.pile = piles.getPile(type);
+        
+        // 全種類の場合、準備の工程をスキップする
+        if (this.pile.cards.length === 33) this.mode = "main_game";
+        
         this.showFlags = [...Array(this.pile.cards.length)].map((_) => false);
         // タイトル表示
         this.mainImage = this.pile.image;
