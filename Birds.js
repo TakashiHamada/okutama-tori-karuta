@@ -13,13 +13,13 @@ function Birds() {
     this.suzume = new Bird('suzume', 'スズメ');
     // 11-
     this.kisekirei = new Bird('kisekirei', 'キセキレイ');
-    this.hashibosogarasu= new Bird('hashibosogarasu', 'ハシボソガラス');
+    this.hashibosogarasu= new Bird('bosogarasu', 'ハシボソガラス');
     this.gabicho = new Bird('gabicho', 'ガビチョウ');
     this.ikaru = new Bird('ikaru', 'イカル');
-    this.jyobitaki = new Bird('jyobitaki', 'ジョウビタキ');
+    this.jyobitaki = new Bird('jobitaki', 'ジョウビタキ');
     this.komadori = new Bird('komadori', 'コマドリ');
     this.yabusame = new Bird('yabusame', 'ヤブサメ');
-    this.sankoucho = new Bird('sankoucho', 'サンコウチョウ');
+    this.sankoucho = new Bird('sankouchou', 'サンコウチョウ');
     this.fukurou = new Bird('fukurou', 'フクロウ');
     this.aobato = new Bird('aobato', 'アオバト');
     // 21-
@@ -28,7 +28,7 @@ function Birds() {
     this.koruri = new Bird('koruri', 'コルリ');
     this.ruribitaki = new Bird('ruribitaki', 'ルリビタキ');
     this.mozu = new Bird('mozu', 'モズ');
-    this.shijyukara = new Bird('shijyukara', 'シジュウカラ');
+    this.shijyukara = new Bird('shijukara', 'シジュウカラ');
     this.yamasemi = new Bird('yamasemi', 'ヤマセミ');
     this.kawasemi = new Bird('kawasemi', 'カワセミ');
     this.higara = new Bird('higara', 'ヒガラ');
@@ -36,7 +36,7 @@ function Birds() {
     // 31-
     this.toratsugumi = new Bird('toratsugumi', 'トラツムギ');
     this.aogera = new Bird('aogera', 'アオゲラ');
-    this.ooakagera = new Bird('ooakagera', 'オオアカゲラ');
+    this.ooakagera = new Bird('oakagera', 'オオアカゲラ');
 }
 
 function Bird(filePrefix, name) {

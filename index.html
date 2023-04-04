@@ -68,14 +68,14 @@
 
     <div v-show="mode=='main_game'" @click="onPushed" class="">
         <h1 class="text-white absolute top-0 right-0 p-2 text-xl">
-            {{pile.location}}
+            【{{pile.location}}】
         </h1>
         <img :src="mainImage" alt="icon" class="mx-auto rounded-lg m-4"/>
-        <h1 class="text-white absolute bottom-0 left-0 p-2 text-xl">
+        <h1 class="text-white absolute bottom-0 left-0 p-2 text-3xl font-bold">
             {{name}}
         </h1>
         <h1 class="text-white absolute bottom-0 right-0 p-2 text-xl">
-            残り{{resetCountDown}}枚
+            {{resetCountDown}}
         </h1>
     </div>
 

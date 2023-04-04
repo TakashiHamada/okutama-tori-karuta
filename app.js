@@ -11,8 +11,10 @@ var app = new Vue({
     },
     computed: { // getter
         resetCountDown: function () {
+            if (!this.playing) return "";
+            
             let left = this.playingCards.length;
-            return left == 0 ? "最後の1" : left + 1;
+            return "残り" + (left == 0 ? "最後の1" : left + 1) + "枚";
         },
         remainingCardCount: function () {
             return this.pile.cards.filter(card => !card.selected).length;
@@ -22,16 +24,19 @@ var app = new Vue({
         let piles = new Piles();
         let type = getUrlQueries()['type'];
         this.pile = piles.getPile(type);
-
-        // 全種類の場合、準備の工程をスキップする
-        if (detectFullGame(this.pile.cards.length))
-            this.mode = "main_game";
-        
     },
     methods: {
         startPreparation() {
-            playSe("instructions/collect");
             this.mode = "preparation";
+            
+            // 全種類の場合、カードを全て選択する
+            if (detectFullGame(this.pile.cards.length)) {
+                this.pile.cards.forEach(card => card.selected = true);
+                this.scrollToBottomIfPossible();
+            }
+            else {
+                playSe("instructions/collect");
+            }
         },
         async startGame() {
             this.mode = "main_game";
@@ -40,13 +45,12 @@ var app = new Vue({
             this.playingCards = shuffleArray(this.pile.cards);
 
             this.mainImage = "otherImages/game_over.jpg";
-            
+
             // 場所の読み上げ
             if (!detectFullGame(this.pile.cards.length))
                 await playSe("instructions/here");
-            
+
             await playSe("locations/" + this.pile.filePrefix);
-        
             await playSe("instructions/start");
 
             this.onPushed();
@@ -55,10 +59,12 @@ var app = new Vue({
             playSe("instructions/test");
         },
         async reload() {
+            this.playing = false;
+            
             playSe("instructions/end");
-
             this.mainImage = "otherImages/game_over.jpg";
-            this.name = "リロードします...";
+            this.name = "";
+            
             await waitSec(2);
             window.location.reload();
         },
@@ -81,7 +87,7 @@ var app = new Vue({
                     await playSe(this.selectedCard.filePrefix);
                     await waitSec(1.5);
                 }
-                
+
             } else {
                 // 正解の表示
                 this.mainImage = "birdimages/" + this.selectedCard.filePrefix + ".jpg";
