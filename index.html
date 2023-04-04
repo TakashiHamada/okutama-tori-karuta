@@ -35,8 +35,9 @@
             ゲームをはじめる
         </button>
 
-<!--        モーダル-->
-        <div v-show="mode=='instruction'" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
+        <!--        モーダル-->
+        <div v-show="mode=='instruction'"
+             class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
             <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
             <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
                 <div class="modal-header py-3 px-4 border-b border-gray-300">
@@ -49,8 +50,10 @@
 
                     <h2 class="font-bold my-3">音が出るかチェック！</h2>
                     <div class="">
-                        <button @click="playTestSe()" class="w-full py-2 text-m text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto">
+                        <button @click="playTestSe()"
+                                class="w-full py-2 text-m text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto">
                             テスト音声の再生
+                        <p class="text-xs text-white">声：青都 みなも</p>
                         </button>
                         <h3 class="font-bold my-2">音がでない主な原因</h3>
                         <p>
@@ -58,7 +61,8 @@
                             ・設定音量が小さい
                         </p>
                     </div>
-                    <button v-on:click="startPreparation()" class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto mt-5">
+                    <button v-on:click="startPreparation()"
+                            class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto mt-5">
                         カードを見つける
                     </button>
                 </div>
