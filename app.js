@@ -30,8 +30,7 @@ var app = new Vue({
         // 山札をコピーする(リセット)
         this.playingCards = shuffleArray(this.pile.cards);
         
-        // タイトル表示
-        this.mainImage = this.pile.image;
+        this.onPushed();
     },
     methods: {
         playTestSe() {
