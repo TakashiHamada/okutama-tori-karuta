@@ -21,7 +21,7 @@
     <div v-show="mode=='preparation' || mode=='instruction'">
         <ul v-on:click="scrollToBottomIfPossible" class="columns-2 md:columns-3 lg:columns-4">
             <li v-for="(card, idx) in pile.cards" v-bind:class="{'opacity-20':card.selected}">
-                <button v-on:click="card.selected=!card.selected">
+                <button v-on:click="card.pick()">
                     <img class="" v-bind:src="getBirdImageURL(card)">
                 </button>
             </li>
@@ -29,7 +29,7 @@
         <p v-show="0 < remainingCardCount" class="text-white text-m">
             全てのカードを見つけて！ 残り {{remainingCardCount}} 枚
         </p>
-        <button :disabled="0 < remainingCardCount" v-on:click="proceedGameState()"
+        <button :disabled="0 < remainingCardCount" v-on:click="startGame()"
                 class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto"
                 v-bind:class="{'opacity-50':0 < remainingCardCount}">
             ゲームをはじめる
@@ -50,7 +50,7 @@
                     <h2 class="font-bold my-3">音が出るかチェック！</h2>
                     <div class="">
                         <button @click="playTestSe()" class="w-full py-2 text-m text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto">
-                            テスト再生（ウグイス）
+                            テスト音声の再生
                         </button>
                         <h3 class="font-bold my-2">音がでない主な原因</h3>
                         <p>
@@ -58,7 +58,7 @@
                             ・設定音量が小さい
                         </p>
                     </div>
-                    <button v-on:click="proceedGameState()" class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto mt-5">
+                    <button v-on:click="startPreparation()" class="w-full py-4 text-xl text-center text-white transition-colors duration-300 bg-green-400 rounded-full hover:bg-green-500 ease px-9 md:w-auto mt-5">
                         カードを見つける
                     </button>
                 </div>
