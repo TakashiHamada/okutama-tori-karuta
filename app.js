@@ -90,7 +90,7 @@ var app = new Vue({
 
             } else {
                 // 正解の表示
-                this.mainImage = "birdimages/" + this.selectedCard.filePrefix + ".jpg";
+                this.mainImage = "birdImages/" + this.selectedCard.filePrefix + ".jpg";
                 this.name = this.selectedCard.name;
 
                 await playSe("names/" + this.selectedCard.filePrefix);
