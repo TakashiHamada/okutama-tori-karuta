@@ -24,8 +24,9 @@ var app = new Vue({
         this.pile = piles.getPile(type);
 
         // 全種類の場合、準備の工程をスキップする
-        if (this.pile.cards.length === 33)
+        if (detectFullGame(this.pile.cards.length))
             this.mode = "main_game";
+        
     },
     methods: {
         startPreparation() {
@@ -39,6 +40,13 @@ var app = new Vue({
             this.playingCards = shuffleArray(this.pile.cards);
 
             this.mainImage = "otherImages/game_over.jpg";
+            
+            // 場所の読み上げ
+            if (!detectFullGame(this.pile.cards.length))
+                await playSe("instructions/here");
+            
+            await playSe("locations/" + this.pile.filePrefix);
+        
             await playSe("instructions/start");
 
             this.onPushed();
