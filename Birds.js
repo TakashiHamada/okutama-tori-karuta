@@ -34,7 +34,7 @@ function Birds() {
     this.higara = new Bird('higara', 'ヒガラ');
     this.akahara = new Bird('akahara', 'アカハラ');
     // 31-
-    this.toratsugumi = new Bird('toratsugumi', 'トラツムギ');
+    this.toratsugumi = new Bird('toratsugumi', 'トラツグミ');
     this.aogera = new Bird('aogera', 'アオゲラ');
     this.ooakagera = new Bird('oakagera', 'オオアカゲラ');
 }
