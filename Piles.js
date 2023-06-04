@@ -28,7 +28,7 @@ function Piles() {
     };
     this.nippara = {
         cards: [birds.hojiro, birds.hiyodori, birds.misosazai, birds.uguisu, birds.ooruri,
-            birds.kibitaki, birds.kogera, birds.kakesu, bards.suzume, birds.kisekirei,
+            birds.kibitaki, birds.kogera, birds.kakesu, birds.suzume, birds.kisekirei,
             birds.hashibosogarasu, birds.gabicho, birds.jyobitaki, birds.fukurou, birds.kijibato,
             birds.shijyukara, birds.toratsugumi, birds.aogera,],
         location: '日原',
