@@ -44,7 +44,7 @@ var app = new Vue({
             // 山札をコピーする(リセット)
             this.playingCards = shuffleArray(this.pile.cards);
 
-            this.mainImage = "otherImages/game_over.jpg";
+            this.mainImage = "otherImages/game_start.jpg";
 
             // 場所の読み上げ
             if (!detectFullGame(this.pile.cards.length))
@@ -55,18 +55,15 @@ var app = new Vue({
 
             this.onPushed();
         },
-        playTestSe() {
-            playSe("instructions/test");
-        },
-        async reload() {
+        result() {
             this.playing = false;
             
             playSe("instructions/end");
             this.mainImage = "otherImages/game_over.jpg";
             this.name = "";
             
-            await waitSec(2);
-            window.location.reload();
+            // 山札をコピーする(リセット)
+            this.playingCards = shuffleArray(this.pile.cards);
         },
         async onPushed() {
             this.playing = !this.playing;
@@ -75,7 +72,7 @@ var app = new Vue({
 
                 // 山札がなくなったらリロードする
                 if (this.playingCards.length === 0) {
-                    this.reload();
+                    this.result();
                     return;
                 }
 
