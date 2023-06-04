@@ -8,6 +8,7 @@ var app = new Vue({
         mainImage: "",
         name: "",
         mode: "instruction",
+        stopper: false,
     },
     computed: { // getter
         resetCountDown: function () {
@@ -40,11 +41,10 @@ var app = new Vue({
         },
         async startGame() {
             this.mode = "main_game";
+            this.mainImage = "otherImages/game_start.jpg";
 
             // 山札をコピーする(リセット)
             this.playingCards = shuffleArray(this.pile.cards);
-
-            this.mainImage = "otherImages/game_start.jpg";
 
             // 場所の読み上げ
             if (!detectFullGame(this.pile.cards.length))
@@ -70,6 +70,9 @@ var app = new Vue({
             this.playingCards = shuffleArray(this.pile.cards);
         },
         async onPushed() {
+            // 連続押しの防止
+            if (this.stopper) return;
+            
             this.playing = !this.playing;
 
             if (this.playing) {
@@ -83,6 +86,12 @@ var app = new Vue({
                 this.name = "";
                 this.selectedCard = this.playingCards.shift();
                 this.mainImage = "otherImages/quiz.jpg";
+                
+                // 画面遷移後の連続押しの予防
+                stopSe();
+                this.stopper = true;
+                await waitSec(0.5);
+                this.stopper = false;
 
                 while (this.playing) {
                     await playSe(this.selectedCard.filePrefix);
@@ -93,9 +102,11 @@ var app = new Vue({
                 // 正解の表示
                 this.mainImage = "birdImages/" + this.selectedCard.filePrefix + ".jpg";
                 this.name = this.selectedCard.name;
+                this.stopper = true;
 
                 await playSe("names/" + this.selectedCard.filePrefix);
                 playSe(this.selectedCard.filePrefix)
+                this.stopper = false;
             }
         },
         getBirdImageURL(card) {
