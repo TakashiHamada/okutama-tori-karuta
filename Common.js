@@ -9,7 +9,7 @@ function getUrlQueries() {
     }
 
     // クエリ文字列を & で分割して処理
-    queryStr.split('&').forEach(function(queryStr) {
+    queryStr.split('&').forEach(function (queryStr) {
         // = で分割してkey,valueをオブジェクトに格納
         var queryArr = queryStr.split('=');
         queries[queryArr[0]] = queryArr[1];
@@ -40,6 +40,10 @@ function playSe(fileName, volume = 1.0) {
             }
         }).play();
     })
+}
+
+function stopSe() {
+    Howler.stop();
 }
 
 // https://zenn.dev/k_kazukiiiiii/articles/cf3256ef6cbd84
