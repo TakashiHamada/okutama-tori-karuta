@@ -55,6 +55,10 @@ var app = new Vue({
 
             this.onPushed();
         },
+        // 「これはテスト音声です…」
+        playTestSe() {
+            playSe("instructions/test");
+        },
         result() {
             this.playing = false;
             
