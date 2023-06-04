@@ -13,7 +13,7 @@ var app = new Vue({
     computed: { // getter
         resetCountDown: function () {
             if (!this.playing) return "";
-            
+
             let left = this.playingCards.length;
             return "残り" + (left == 0 ? "最後の1" : left + 1) + "枚";
         },
@@ -29,13 +29,12 @@ var app = new Vue({
     methods: {
         startPreparation() {
             this.mode = "preparation";
-            
+
             // 全種類の場合、カードを全て選択する
             if (detectFullGame(this.pile.cards.length)) {
                 this.pile.cards.forEach(card => card.selected = true);
                 this.scrollToBottomIfPossible();
-            }
-            else {
+            } else {
                 playSe("instructions/collect");
             }
         },
@@ -59,20 +58,22 @@ var app = new Vue({
         playTestSe() {
             playSe("instructions/test");
         },
-        result() {
+        async result() {
             this.playing = false;
-            
-            playSe("instructions/end");
+            this.stopper = true;
+
             this.mainImage = "otherImages/game_over.jpg";
             this.name = "";
-            
+            await playSe("instructions/end");
+
             // 山札をコピーする(リセット)
             this.playingCards = shuffleArray(this.pile.cards);
+            this.stopper = false;
         },
         async onPushed() {
             // 連続押しの防止
             if (this.stopper) return;
-            
+
             this.playing = !this.playing;
 
             if (this.playing) {
@@ -82,20 +83,18 @@ var app = new Vue({
                     this.result();
                     return;
                 }
+                
+                // 画面遷移後の連続押しの予防
+                stopSe();
+                this.lock(1.5);
 
                 this.name = "";
                 this.selectedCard = this.playingCards.shift();
                 this.mainImage = "otherImages/quiz.jpg";
-                
-                // 画面遷移後の連続押しの予防
-                stopSe();
-                this.stopper = true;
-                await waitSec(0.5);
-                this.stopper = false;
 
                 while (this.playing) {
                     await playSe(this.selectedCard.filePrefix);
-                    await waitSec(1.5);
+                    await waitSec(1);
                 }
 
             } else {
@@ -108,6 +107,11 @@ var app = new Vue({
                 playSe(this.selectedCard.filePrefix)
                 this.stopper = false;
             }
+        },
+        async lock(time) {
+            this.stopper = true;
+            await waitSec(time);
+            this.stopper = false;
         },
         getBirdImageURL(card) {
             return "./birdImages/" + card.filePrefix + ".jpg";
