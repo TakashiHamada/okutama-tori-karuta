@@ -37,7 +37,7 @@ function Piles() {
     this.shiromaru = {
         cards: [birds.hiyodori, birds.misosazai, birds.uguisu, birds.ooruri, birds.tobi,
             birds.kakesu, birds.kisekirei, birds.gabicho, birds.yabusame, birds.aobato,
-            birds.kijibato, birds.shijyukara, birds.kawasemi, birds.higara],
+            birds.kibitaki, birds.shijyukara, birds.kawasemi, birds.higara],
         location: '白丸湖',
         filePrefix: 'shiromaruko',
     };
