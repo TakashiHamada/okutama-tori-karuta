@@ -19,9 +19,10 @@
 <main id="app" class="m-auto w-96" v-cloak>
 
     <div v-show="mode=='preparation' || mode=='instruction'">
-        <ul v-on:click="scrollToBottomIfPossible" class="columns-2 md:columns-3 lg:columns-4">
-            <li v-for="(card, idx) in pile.cards" v-bind:class="{'opacity-20':card.selected}">
+        <ul v-on:click="scrollToBottomIfPossible" class="flex flex-wrap">
+            <li v-for="(card, idx) in pile.cards" v-bind:class="{'opacity-20':card.selected}" class="w-1/2 h-[187.5px]">
                 <button v-on:click="card.pick()">
+                    <p class="text-lg px-2 text-white bg-black bg-opacity-30 absolute">{{idx + 1}}</p>
                     <img class="" v-bind:src="getBirdImageURL(card)">
                 </button>
             </li>
