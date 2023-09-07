@@ -83,7 +83,7 @@ var app = new Vue({
                     this.result();
                     return;
                 }
-                
+
                 // 画面遷移後の連続押しの予防
                 stopSe();
                 this.lock(1.5);
@@ -115,6 +115,16 @@ var app = new Vue({
         },
         getBirdImageURL(card) {
             return "./birdImages/" + card.filePrefix + ".jpg";
+        },
+        supposeBirdIdx(card) {
+            let piles = new Piles();
+            let all = piles.all.cards;
+
+            for (let idx = 0; idx < all.length; idx++) {
+                if (card.name == all[idx].name)
+                    return idx + 1;
+            }
+            return -1;
         },
         scrollToBottomIfPossible() {
             if (0 < this.remainingCardCount) return;
