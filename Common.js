@@ -60,7 +60,3 @@ function shuffleArray(array) {
 
     return cloneArray
 }
-
-function detectFullGame(length) {
-    return length === 33;
-}

@@ -70,6 +70,11 @@ function Piles() {
         location: '御岳山',
         filePrefix: 'mitakesan',
     };
+    this.pr_0 = {
+        cards: [birds.uguisu, birds.ooruri, birds.aobato, birds.shijyukara],
+        location: '卵道スペシャル',
+        filePrefix: 'pr_0',
+    };
     this.all = {
         cards: [birds.hojiro, birds.hiyodori, birds.misosazai, birds.uguisu, birds.ooruri,
             birds.kibitaki, birds.kogera, birds.tobi, birds.kakesu, birds.suzume,
@@ -101,6 +106,8 @@ function Piles() {
                 return this.hinoharatominnomori;
             case 'mtke' :
                 return this.mitakesan;
+            case 'pr_0' :
+                return this.pr_0;
             default :
                 return this.all;
         }

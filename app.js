@@ -31,7 +31,7 @@ var app = new Vue({
             this.mode = "preparation";
 
             // 全種類の場合、カードを全て選択する
-            if (detectFullGame(this.pile.cards.length)) {
+            if (this.checkSkipPreparation()) {
                 this.pile.cards.forEach(card => card.selected = true);
                 this.scrollToBottomIfPossible();
             } else {
@@ -46,10 +46,13 @@ var app = new Vue({
             this.playingCards = shuffleArray(this.pile.cards);
 
             // 場所の読み上げ
-            if (!detectFullGame(this.pile.cards.length))
+            if (!this.checkSkipPreparation())
                 await playSe("instructions/here");
 
-            await playSe("locations/" + this.pile.filePrefix);
+            // todo ランウェイ用の音声を用意したほうがベター
+            if (this.pile.filePrefix != "pr_0")
+                await playSe("locations/" + this.pile.filePrefix);
+            
             await playSe("instructions/start");
 
             this.onPushed();
@@ -102,7 +105,6 @@ var app = new Vue({
                 this.mainImage = "birdImages/" + this.selectedCard.filePrefix + ".jpg";
                 this.name = this.selectedCard.name;
                 this.stopper = true;
-
                 await playSe("names/" + this.selectedCard.filePrefix);
                 playSe(this.selectedCard.filePrefix)
                 this.stopper = false;
@@ -138,6 +140,15 @@ var app = new Vue({
                 top: bottom,
                 behavior: "smooth"
             });
+        },
+        checkSkipPreparation() {
+            switch (this.pile.filePrefix) {
+                default:
+                    return false;
+                case "all" :
+                case "pr_0":
+                    return true;
+            }
         }
     }
 })
