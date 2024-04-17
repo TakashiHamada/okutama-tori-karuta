@@ -71,7 +71,7 @@ function Piles() {
         filePrefix: 'mitakesan',
     };
     this.pr_0 = {
-        cards: [birds.uguisu, birds.ooruri, birds.aobato, birds.shijyukara],
+        cards: [birds.uguisu, birds.tobi, birds.hashibosogarasu, birds.shijyukara],
         location: '卵道スペシャル',
         filePrefix: 'pr_0',
     };
