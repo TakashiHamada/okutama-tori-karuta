@@ -43,10 +43,11 @@ function Bird(filePrefix, name) {
     this.filePrefix = filePrefix;
     this.name = name;
     this.selected = false;
-    this.pick = function (){
+    this.pick = async function (){
         this.selected = !this.selected;
         if (this.selected) {
-            playSe("names/" + this.filePrefix);
+            await playSe("names/" + this.filePrefix);
+            await playSe(this.filePrefix);
         }
     }
 }
